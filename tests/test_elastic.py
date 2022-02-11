@@ -85,6 +85,18 @@ VERSION_STRING_7_14 = (
     "2021-08-26T09:01:05.390870785Z, JVM: 11.0.11"
 )
 
+VERSION_STRING_7_17 = (
+    "OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was "
+    "deprecated in version 9.0 and will likely be removed in a future release."
+    "\nVersion: 7.17.0, Build: default/tar/bee86328705acaa9a6daede7140defd4d9ec56bd/"
+    "2022-01-28T08:36:04.875279988Z, JVM: 11.0.14"
+)
+
+VERSION_STRING_8_0 = (
+    "Version: 8.0.0, Build: default/tar/1b6a7ece17463df5ff54a3e1302d825889aa1161/"
+    "2022-02-03T16:47:57.507843096Z, JVM: 17.0.1"
+)
+
 
 @pytest.mark.parametrize(
     "output, expected_version",
@@ -101,6 +113,8 @@ VERSION_STRING_7_14 = (
         (VERSION_STRING_7_10, "7.10.0"),
         (VERSION_STRING_7_12, "7.12.1"),
         (VERSION_STRING_7_14, "7.14.1"),
+        (VERSION_STRING_7_17, "7.17.0"),
+        (VERSION_STRING_8_0, "8.0.0"),
     ),
 )
 def test_version_extraction(output, expected_version):

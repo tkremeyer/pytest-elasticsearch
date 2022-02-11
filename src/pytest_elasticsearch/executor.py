@@ -112,12 +112,15 @@ class ElasticSearchExecutor(HTTPExecutor):
         :return: command to run elasticsearch
         :rtype: str
         """
+        port_param = "transport.port"
         if self.version < parse_version("6.0.0"):
             raise RuntimeError("This elasticsearch version is not supported.")
+        elif self.version < parse_version("8.0.0"):
+            port_param = "transport.tcp.port"
         return f"""
             {self.executable} -p {self.pidfile}
             -E http.port={self.port}
-            -E transport.tcp.port={self.tcp_port}
+            -E {port_param}={self.tcp_port}
             -E path.logs={self.logs_path}
             -E path.data={self.works_path}
             -E cluster.name={self.cluster_name}
