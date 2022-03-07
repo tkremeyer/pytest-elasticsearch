@@ -117,7 +117,7 @@ class ElasticSearchExecutor(HTTPExecutor):
         return f"""
             {self.executable} -p {self.pidfile}
             -E http.port={self.port}
-            -E transport.tcp.port={self.tcp_port}
+            -E transport.port={self.tcp_port}
             -E path.logs={self.logs_path}
             -E path.data={self.works_path}
             -E cluster.name={self.cluster_name}
