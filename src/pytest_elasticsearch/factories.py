@@ -54,6 +54,7 @@ def elasticsearch_proc(
     cluster_name=None,
     network_publish_host=None,
     index_store_type=None,
+    timeout=60
 ):
 
     """
@@ -116,7 +117,7 @@ def elasticsearch_proc(
             elasticsearch_cluster_name,
             elasticsearch_network_publish_host,
             elasticsearch_index_store_type,
-            timeout=60,
+            timeout=timeout,
         )
 
         elasticsearch_executor.start()
