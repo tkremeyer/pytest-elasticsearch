@@ -54,7 +54,7 @@ def elasticsearch_proc(
     cluster_name=None,
     network_publish_host=None,
     index_store_type=None,
-    timeout=60
+    timeout=180
 ):
     
     print(f"TIMEOUT in proc = {timeout}")
