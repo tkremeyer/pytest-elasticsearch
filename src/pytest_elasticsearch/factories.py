@@ -123,15 +123,24 @@ def elasticsearch_proc(
             elasticsearch_index_store_type,
             timeout=timeout,
         )
+        
+        print(f"executor built")
 
         elasticsearch_executor.start()
+        
+        print("executor started, yielding")
+        
         yield elasticsearch_executor
         try:
+            print("stopping executor")
             elasticsearch_executor.stop()
+            print("executor stopped")
         except ProcessExitedWithError:
-            pass
+            print("proc exited with error")
+
         shutil.rmtree(work_path)
         shutil.rmtree(logs_path)
+        print("proc done")
 
     return elasticsearch_proc_fixture
 
@@ -173,20 +182,29 @@ def elasticsearch(process_fixture_name):
     :param str process_fixture_name: elasticsearch process fixture name
     """
 
+    print(f"elasticsearch({process_fixture_name}) called")
+
     @pytest.fixture
     def elasticsearch_fixture(request):
         """Elasticsearch client fixture."""
+        print("es fixture called")
         process = request.getfixturevalue(process_fixture_name)
+        print("es process")
         if not process.running():
+            print("process start")
             process.start()
 
+        print("create client")
         client = Elasticsearch([{"host": process.host, "port": process.port}])
 
         def drop_indexes():
+            print("drop indices")
             client.indices.delete(index="*")
 
+        print("addfinalizer")
         request.addfinalizer(drop_indexes)
 
+        print("elasticsearch_fixture done")
         return client
 
     return elasticsearch_fixture
