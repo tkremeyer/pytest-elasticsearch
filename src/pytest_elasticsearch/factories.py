@@ -56,6 +56,8 @@ def elasticsearch_proc(
     index_store_type=None,
     timeout=60
 ):
+    
+    print(f"TIMEOUT in proc = {timeout}")
 
     """
     Create elasticsearch process fixture.
@@ -105,6 +107,8 @@ def elasticsearch_proc(
 
         pidfile = tmpdir / f"elasticsearch.{elasticsearch_port}.pid"
         work_path = tmpdir / f"workdir_{elasticsearch_port}"
+        
+        print(f"TIMEOUT in fixture = {timeout}")
 
         elasticsearch_executor = ElasticSearchExecutor(
             elasticsearch_executable,
