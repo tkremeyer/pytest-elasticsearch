@@ -42,6 +42,7 @@ class ElasticSearchExecutor(HTTPExecutor):
         network_publish_host,
         index_store_type,
         timeout,
+        scheme="http"
     ):  # pylint:disable=too-many-arguments
         """
         Initialize ElasticSearchExecutor.
@@ -64,6 +65,7 @@ class ElasticSearchExecutor(HTTPExecutor):
         self.executable = executable
         self.host = host
         self.port = port
+        self.scheme = scheme
         self.tcp_port = tcp_port
         self.pidfile = pidfile
         self.logs_path = logs_path
@@ -73,7 +75,7 @@ class ElasticSearchExecutor(HTTPExecutor):
         self.index_store_type = index_store_type
         super().__init__(
             self._exec_command(),
-            f"http://{self.host}:{self.port}",
+            f"{self.scheme}://{self.host}:{self.port}",
             timeout=timeout,
         )
 

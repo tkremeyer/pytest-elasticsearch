@@ -50,6 +50,7 @@ def elasticsearch_proc(
     executable=None,
     host=None,
     port=-1,
+    scheme="http",
     transport_tcp_port=None,
     cluster_name=None,
     network_publish_host=None,
@@ -88,6 +89,7 @@ def elasticsearch_proc(
         config = return_config(request)
         elasticsearch_host = host or config["host"]
         elasticsearch_executable = executable or config["executable"]
+        elasticsearch_scheme = scheme
 
         elasticsearch_port = get_port(port) or get_port(config["port"])
         elasticsearch_transport_port = get_port(transport_tcp_port) or get_port(
@@ -118,6 +120,7 @@ def elasticsearch_proc(
             elasticsearch_network_publish_host,
             elasticsearch_index_store_type,
             timeout=timeout,
+            scheme=elasticsearch_scheme
         )
 
         elasticsearch_executor.start()
@@ -176,7 +179,7 @@ def elasticsearch(process_fixture_name):
         if not process.running():
             process.start()
 
-        client = Elasticsearch([{"host": process.host, "port": process.port}])
+        client = Elasticsearch([{"host": process.host, "port": process.port, "scheme": process.scheme}])
 
         def drop_indexes():
             client.indices.delete(index="*")
