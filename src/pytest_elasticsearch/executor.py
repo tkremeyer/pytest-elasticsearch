@@ -42,7 +42,8 @@ class ElasticSearchExecutor(HTTPExecutor):
         network_publish_host,
         index_store_type,
         timeout,
-        scheme="http"
+        scheme="http",
+        **kwargs
     ):  # pylint:disable=too-many-arguments
         """
         Initialize ElasticSearchExecutor.
@@ -77,6 +78,7 @@ class ElasticSearchExecutor(HTTPExecutor):
             self._exec_command(),
             f"{self.scheme}://{self.host}:{self.port}",
             timeout=timeout,
+            **kwargs
         )
 
     @property
